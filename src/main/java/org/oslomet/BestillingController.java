@@ -39,10 +39,9 @@ public class BestillingController {
     void btnNyBestilling(ActionEvent event) throws IOException {
         Komponent[] k = getSelected(); // hent verdier
         double totPris = totPris(k); // hent total pris
-
         // opprett datamasking med komponenter
-        Datamaskin d = new Datamaskin(k[0],k[1],k[2],k[3],k[4],k[5],k[6],totPris);
-        System.out.println(d.getProsessor()+" "+d.getTotPris());
+        Register.setDatamaskinListe(new Datamaskin(k[0],k[1],k[2],k[3],k[4],k[5],k[6],totPris));
+        App.setRoot("kunde");
     }
 
     @FXML

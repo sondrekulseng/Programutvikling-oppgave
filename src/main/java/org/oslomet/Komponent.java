@@ -1,32 +1,35 @@
 package org.oslomet;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Komponent {
-    private String navn;
-    private double pris;
+    private SimpleStringProperty navn;
+    private SimpleDoubleProperty pris;
 
     public Komponent(String navn, double pris) {
-        this.navn = navn;
-        this.pris = pris;
+        this.navn = new SimpleStringProperty(navn);
+        this.pris = new SimpleDoubleProperty(pris);
     }
 
     public String getNavn() {
-        return navn;
+        return navn.getValue();
     }
 
     public void setNavn(String navn) {
-        this.navn = navn;
+        this.navn.set(navn);
     }
 
     public double getPris() {
-        return pris;
+        return pris.getValue();
     }
 
     public void setPris(double pris) {
-        this.pris = pris;
+        this.pris.set(pris);
     }
 
     @Override
     public String toString() {
-        return navn+", "+pris+" kr";
+        return navn.getValue()+", "+pris.getValue()+" kr";
     }
 }

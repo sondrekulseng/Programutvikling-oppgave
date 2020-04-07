@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.oslomet.KundeController">
    <children>
       <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="600.0">
@@ -36,16 +37,48 @@
             <Font size="25.0" />
          </font>
       </Text>
-      <TableView layoutY="84.0" prefHeight="184.0" prefWidth="600.0">
+      <TableView layoutY="84.0" prefHeight="184.0" prefWidth="600.0" fx:id="tblDatamaskiner">
         <columns>
-          <TableColumn prefWidth="75.0" text="Prosessor" />
-          <TableColumn prefWidth="75.0" text="Skjermkort" />
-            <TableColumn prefWidth="75.0" text="Minne" />
-            <TableColumn prefWidth="75.0" text="Harddisk" />
-            <TableColumn prefWidth="75.0" text="Tastatur" />
-            <TableColumn prefWidth="75.0" text="Datamus" />
-            <TableColumn prefWidth="75.0" text="Skjerm" />
-            <TableColumn prefWidth="75.0" text="Total pris" />
+          <TableColumn prefWidth="75.0" text="Prosessor" fx:id="prosessorCol">
+             <cellValueFactory>
+                <PropertyValueFactory property="prosessor" />
+             </cellValueFactory>
+          </TableColumn>
+          <TableColumn prefWidth="75.0" text="Skjermkort" fx:id="skjermkortCol">
+             <cellValueFactory>
+                <PropertyValueFactory property="skjermkort" />
+             </cellValueFactory>
+          </TableColumn>
+           <TableColumn prefWidth="75.0" text="Minne" fx:id="minneCol">
+              <cellValueFactory>
+                 <PropertyValueFactory property="minne" />
+              </cellValueFactory>
+           </TableColumn>
+           <TableColumn prefWidth="75.0" text="Harddisk" fx:id="harddiskCol">
+              <cellValueFactory>
+                 <PropertyValueFactory property="harddisk" />
+              </cellValueFactory>
+           </TableColumn>
+            <TableColumn prefWidth="75.0" text="Tastatur" fx:id="tastaturCol">
+               <cellValueFactory>
+                  <PropertyValueFactory property="tastatur" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="Datamus" fx:id="datamusCol">
+               <cellValueFactory>
+                  <PropertyValueFactory property="datamus"/>
+               </cellValueFactory>
+            </TableColumn>
+           <TableColumn prefWidth="75.0" text="Skjerm" fx:id="skjermCol">
+              <cellValueFactory>
+                 <PropertyValueFactory property="skjerm"/>
+              </cellValueFactory>
+           </TableColumn>
+            <TableColumn prefWidth="75.0" text="Total pris" fx:id="prisCol">
+               <cellValueFactory>
+                  <PropertyValueFactory property="totPris"/>
+               </cellValueFactory>
+            </TableColumn>
         </columns>
       </TableView>
       <Text layoutX="14.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tidligere bestillinger">

@@ -1,8 +1,10 @@
 package org.oslomet;
 
+import javafx.beans.property.SimpleDoubleProperty;
+
 public class Datamaskin {
     private Komponent prosessor, skjermkort, minne, harddisk, tastatur, datamus, skjerm;
-    private double totPris;
+    private SimpleDoubleProperty totPris;
 
     public Datamaskin(Komponent prosessor, Komponent skjermkort, Komponent minne, Komponent harddisk, Komponent tastatur, Komponent datamus, Komponent skjerm, double totPris) {
         this.prosessor = prosessor;
@@ -12,59 +14,59 @@ public class Datamaskin {
         this.tastatur = tastatur;
         this.datamus = datamus;
         this.skjerm = skjerm;
-        this.totPris = totPris;
+        this.totPris = new SimpleDoubleProperty(totPris);
     }
 
-    public Komponent getProsessor() {
-        return prosessor;
+    public String getProsessor() {
+        return prosessor.getNavn();
     }
 
     public void setProsessor(Komponent prosessor) {
         this.prosessor = prosessor;
     }
 
-    public Komponent getSkjermkort() {
-        return skjermkort;
+    public String getSkjermkort() {
+        return skjermkort.getNavn();
     }
 
     public void setSkjermkort(Komponent skjermkort) {
         this.skjermkort = skjermkort;
     }
 
-    public Komponent getMinne() {
-        return minne;
+    public String getMinne() {
+        return minne.getNavn();
     }
 
     public void setMinne(Komponent minne) {
         this.minne = minne;
     }
 
-    public Komponent getHarddisk() {
-        return harddisk;
+    public String getHarddisk() {
+        return harddisk.getNavn();
     }
 
     public void setHarddisk(Komponent harddisk) {
         this.harddisk = harddisk;
     }
 
-    public Komponent getTastatur() {
-        return tastatur;
+    public String getTastatur() {
+        return tastatur.getNavn();
     }
 
     public void setTastatur(Komponent tastatur) {
         this.tastatur = tastatur;
     }
 
-    public Komponent getDatamus() {
-        return datamus;
+    public String getDatamus() {
+        return datamus.getNavn();
     }
 
     public void setDatamus(Komponent datamus) {
         this.datamus = datamus;
     }
 
-    public Komponent getSkjerm() {
-        return skjerm;
+    public String getSkjerm() {
+        return skjerm.getNavn();
     }
 
     public void setSkjerm(Komponent skjerm) {
@@ -72,6 +74,6 @@ public class Datamaskin {
     }
 
     public double getTotPris() {
-        return totPris;
+        return totPris.getValue();
     }
 }
