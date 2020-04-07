@@ -38,8 +38,14 @@
       </Text>
       <TableView layoutY="84.0" prefHeight="184.0" prefWidth="600.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="75.0" text="Prosessor" />
+          <TableColumn prefWidth="75.0" text="Skjermkort" />
+            <TableColumn prefWidth="75.0" text="Minne" />
+            <TableColumn prefWidth="75.0" text="Harddisk" />
+            <TableColumn prefWidth="75.0" text="Tastatur" />
+            <TableColumn prefWidth="75.0" text="Datamus" />
+            <TableColumn prefWidth="75.0" text="Skjerm" />
+            <TableColumn prefWidth="75.0" text="Total pris" />
         </columns>
       </TableView>
       <Text layoutX="14.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tidligere bestillinger">

@@ -1,10 +1,10 @@
 package org.oslomet;
 
-public class Prosessor implements Komponenter {
+public class Komponent {
     private String navn;
     private double pris;
 
-    Prosessor(String navn, double pris) {
+    public Komponent(String navn, double pris) {
         this.navn = navn;
         this.pris = pris;
     }
@@ -23,5 +23,10 @@ public class Prosessor implements Komponenter {
 
     public void setPris(double pris) {
         this.pris = pris;
+    }
+
+    @Override
+    public String toString() {
+        return navn+", "+pris+" kr";
     }
 }
