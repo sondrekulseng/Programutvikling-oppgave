@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class KomponentController {
 
-    String[] k = {"Prosessor","Skjermkort","Minne","Lagring","Tastatur","Datamus","Skjerm"};
+    String[] k = {"Prosessor","Skjermkort","Minne","Harddisk","Tastatur","Datamus","Skjerm"};
 
     @FXML
     public void initialize() {
@@ -55,19 +55,19 @@ public class KomponentController {
             return;
         }
 
-        if (kategori.equals(k[0])) {
+        if (kategori.equals(k[0])) { // prosessor
             Register.setProsessorListe(navn, pris);
-        } else if (kategori.equals(k[1])) {
+        } else if (kategori.equals(k[1])) { // skjermkort
             Register.setSkjermkortListe(navn, pris);
-        } else if (kategori.equals(k[2])) {
+        } else if (kategori.equals(k[2])) { // minne
             Register.setMinneListe(navn, pris);
-        } else if (kategori.equals(k[3])) {
-            Register.setLagringListe(navn, pris);
-        } else if (kategori.equals(k[4])) {
+        } else if (kategori.equals(k[3])) { // harddisk
+            Register.setHarddiskListe(navn, pris);
+        } else if (kategori.equals(k[4])) { // tastatur
             Register.setTastaturListe(navn, pris);
-        } else if (kategori.equals(k[5])) {
+        } else if (kategori.equals(k[5])) { // datamus
             Register.setDatamusListe(navn, pris);
-        } else if (kategori.equals(k[6])) {
+        } else if (kategori.equals(k[6])) { // skjerm
             Register.setSkjermListe(navn, pris);
         }
         txtNavn.clear();

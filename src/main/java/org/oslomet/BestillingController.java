@@ -3,6 +3,7 @@ package org.oslomet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.ScatterChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -38,10 +39,17 @@ public class BestillingController {
     @FXML
     void btnNyBestilling(ActionEvent event) throws IOException {
         Komponent[] k = getSelected(); // hent verdier
-        double totPris = totPris(k); // hent total pris
-        // opprett datamasking med komponenter
-        Register.setDatamaskinListe(new Datamaskin(k[0],k[1],k[2],k[3],k[4],k[5],k[6],totPris));
-        App.setRoot("kunde");
+        if (validering(k)) { // validering godkjent
+            double totPris = totPris(k); // total pris
+            Register.setDatamaskinListe(new Datamaskin(k[0],k[1],k[2],k[3],k[4],k[5],k[6],totPris)); // ny pc
+            App.setRoot("kunde"); //
+        } else { // validering er ikke godkjent
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fyll ut felter");
+            alert.setHeaderText("Du må fylle ut alle feltene");
+            alert.setContentText("Lukk dialogboksen og prøv på nytt");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -55,73 +63,56 @@ public class BestillingController {
         Komponent datamus = velgDatamus.getValue();
         Komponent skjerm = velgSkjerm.getValue();
 
-        // legg verdier i en array
+        // legg verdier i array
         Komponent[] k = {prosessor,skjermkort,minne,lagring,tastatur,datamus,skjerm};
 
         print(k); // print kvittering med valgte komponenter og totpris
-        validering(k); // valider at bruker har fylt ut alle felt
 
         return k; // returner verdier fra nedtrekksliste som array
     }
 
     double totPris(Komponent[] k) {
         double totPris = 0;
-        if (k[0] != null) {
-            totPris = totPris+k[0].getPris();
-        }
-        if (k[1] != null) {
-            totPris = totPris+k[1].getPris();
-        }
-        if (k[2] != null) {
-            totPris = totPris+k[2].getPris();
-        }
-        if (k[3] != null) {
-            totPris = totPris+k[3].getPris();
-        }
-        if (k[4] != null) {
-            totPris = totPris+k[4].getPris();
-        }
-        if (k[5] != null) {
-            totPris = totPris+k[5].getPris();
-        }
-        if (k[6] != null) {
-            totPris = totPris+k[6].getPris();
+        for (int i=0; i<k.length; i++) {
+            if (k[i] != null) {
+                totPris = totPris+k[i].getPris();
+            }
         }
         return totPris;
     }
 
-    void validering(Komponent[] k) {
+    boolean validering(Komponent[] k) {
         if (k[0]==null||k[1]==null||k[2]==null||k[3]==null||k[4]==null||k[5]==null||k[6]==null) {
-            btnNyBestilling.setDisable(true);
+            return false;
         } else {
-            btnNyBestilling.setDisable(false);
+            return true;
         }
     }
 
     void print(Komponent[] k) {
         double totPris = totPris(k);
+        String[] liste = {"Prosessor","Skjermkort","Minne","Harddisk","Tastatur","Datamus","Skjerm"};
+        String ut = "";
+        ut += "Kvittering\n";
         // print kvittering
-        lblKvittering.setText("");
-        lblKvittering.setText("KVITTERING: \n"+
-                "Prosessor: "+k[0]+"\n"+
-                "Skjermkort: "+k[1]+"\n"+
-                "Minne: "+k[2]+"\n"+
-                "Lagring: "+k[3]+"\n"+
-                "Tastatur: "+k[4]+"\n"+
-                "Datamus: "+k[5]+"\n"+
-                "Skjerm: "+k[6]+"\n"+
-                "Total pris: "+totPris+" kr");
+        for (int i=0; i<k.length; i++) {
+            if (k[i]!=null) {
+                ut += liste[i]+": "+k[i]+"\n";
+            }
+        }
+        ut += "\nTotal sum: "+totPris+" kr";
+        lblKvittering.setText(ut);
     }
 
     @FXML
     public void initialize() {
+        // fyll nedtrekkslister med verdier fra komponent lister
         velgProsessor.getItems().addAll(Register.getProsessorListe());
         velgSkjermkort.getItems().addAll(Register.getSkjermkortListe());
         velgMinne.getItems().addAll(Register.getMinneListe());
-        velgLagring.getItems().addAll(Register.getLagringListe());
+        velgLagring.getItems().addAll(Register.getHarddiskListe());
         velgTastatur.getItems().addAll(Register.getTastaturListe());
         velgDatamus.getItems().addAll(Register.getDatamusListe());
         velgSkjerm.getItems().addAll(Register.getSkjermListe());
-        btnNyBestilling.setDisable(true);
     }
 }

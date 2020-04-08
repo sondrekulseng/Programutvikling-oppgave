@@ -6,14 +6,14 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.oslomet.KundeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.oslomet.KundeController">
    <children>
-      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="600.0">
+      <MenuBar layoutY="1.0" prefHeight="600.0" prefWidth="1000.0">
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
@@ -32,69 +32,69 @@
             </Menu>
          </menus>
       </MenuBar>
-      <Text layoutX="232.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kunde siden" textAlignment="CENTER">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Text>
-      <TableView layoutY="84.0" prefHeight="184.0" prefWidth="600.0" fx:id="tblDatamaskiner">
+      <TableView fx:id="tblDatamaskiner" layoutY="100.0" prefHeight="283.0" prefWidth="1000.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Prosessor" fx:id="prosessorCol">
+          <TableColumn fx:id="prosessorCol" prefWidth="124.0" text="Prosessor">
              <cellValueFactory>
                 <PropertyValueFactory property="prosessor" />
              </cellValueFactory>
           </TableColumn>
-          <TableColumn prefWidth="75.0" text="Skjermkort" fx:id="skjermkortCol">
+          <TableColumn fx:id="skjermkortCol" prefWidth="124.0" text="Skjermkort">
              <cellValueFactory>
                 <PropertyValueFactory property="skjermkort" />
              </cellValueFactory>
           </TableColumn>
-           <TableColumn prefWidth="75.0" text="Minne" fx:id="minneCol">
+           <TableColumn fx:id="minneCol" prefWidth="124.0" text="Minne">
               <cellValueFactory>
                  <PropertyValueFactory property="minne" />
               </cellValueFactory>
            </TableColumn>
-           <TableColumn prefWidth="75.0" text="Harddisk" fx:id="harddiskCol">
+           <TableColumn fx:id="harddiskCol" prefWidth="124.0" text="Harddisk">
               <cellValueFactory>
                  <PropertyValueFactory property="harddisk" />
               </cellValueFactory>
            </TableColumn>
-            <TableColumn prefWidth="75.0" text="Tastatur" fx:id="tastaturCol">
+            <TableColumn fx:id="tastaturCol" prefWidth="124.0" text="Tastatur">
                <cellValueFactory>
                   <PropertyValueFactory property="tastatur" />
                </cellValueFactory>
             </TableColumn>
-            <TableColumn prefWidth="75.0" text="Datamus" fx:id="datamusCol">
+            <TableColumn fx:id="datamusCol" prefWidth="124.0" text="Datamus">
                <cellValueFactory>
-                  <PropertyValueFactory property="datamus"/>
+                  <PropertyValueFactory property="datamus" />
                </cellValueFactory>
             </TableColumn>
-           <TableColumn prefWidth="75.0" text="Skjerm" fx:id="skjermCol">
+           <TableColumn fx:id="skjermCol" prefWidth="124.0" text="Skjerm">
               <cellValueFactory>
-                 <PropertyValueFactory property="skjerm"/>
+                 <PropertyValueFactory property="skjerm" />
               </cellValueFactory>
            </TableColumn>
-            <TableColumn prefWidth="75.0" text="Total pris" fx:id="prisCol">
+            <TableColumn fx:id="prisCol" prefWidth="124.0" text="Total pris">
                <cellValueFactory>
-                  <PropertyValueFactory property="totPris"/>
+                  <PropertyValueFactory property="totPris" />
                </cellValueFactory>
             </TableColumn>
         </columns>
       </TableView>
-      <Text layoutX="14.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tidligere bestillinger">
+      <Text layoutX="14.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tidligere bestillinger">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Button layoutX="128.0" layoutY="316.0" mnemonicParsing="false" onAction="#btnNyBestilling" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: blue;" text="Ny bestilling" textFill="WHITE">
+      <Button layoutX="270.0" layoutY="450.0" mnemonicParsing="false" onAction="#btnNyBestilling" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: blue;" text="Ny bestilling" textFill="WHITE">
          <font>
-            <Font size="14.0" />
+            <Font size="16.0" />
          </font>
       </Button>
-      <Button layoutX="311.0" layoutY="316.0" mnemonicParsing="false" onAction="#btnLoggUt" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: red;" text="Logg ut" textFill="WHITE">
+      <Button layoutX="570.0" layoutY="450.0" mnemonicParsing="false" onAction="#btnLoggUt" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: red;" text="Logg ut" textFill="WHITE">
          <font>
-            <Font size="14.0" />
+            <Font size="16.0" />
          </font>
       </Button>
+      <Text layoutX="430.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kunde siden" textAlignment="CENTER">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
