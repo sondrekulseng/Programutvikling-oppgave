@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.oslomet.StartController">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.oslomet.StartController" stylesheets="@style.css">
    <children>
       <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="1000.0">
          <menus>
@@ -34,12 +34,12 @@
             <Font size="40.0" />
          </font>
       </Text>
-      <Button layoutX="353.0" layoutY="273.0" mnemonicParsing="false" onAction="#switchToKunde" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: blue;" text="Kunde" textFill="WHITE">
+      <Button styleClass="btnConfirm" prefHeight="25" prefWidth="121" layoutX="353.0" layoutY="273.0" mnemonicParsing="false" onAction="#switchToKunde" text="Kunde">
          <font>
             <Font size="25.0" />
          </font>
       </Button>
-      <Button layoutX="524.0" layoutY="273.0" mnemonicParsing="false" onAction="#switchToAdmin" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: blue;" text="Admin" textFill="WHITE">
+      <Button styleClass="btnConfirm" prefHeight="25" prefWidth="121"  layoutX="524.0" layoutY="273.0" mnemonicParsing="false" onAction="#switchToAdmin" text="Admin">
          <font>
             <Font size="25.0" />
          </font>

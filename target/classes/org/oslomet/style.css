@@ -1,0 +1,42 @@
+/* Global */
+.root {
+    -fx-pref-height: 600;
+    -fx-pref-width: 1000;
+    -fx-background-color: lightblue;
+    -fx-font-family: sans-serif;
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+
+.btnConfirm {
+    -fx-background-color: blue;
+    -fx-text-fill: white;
+}
+
+.btnConfirm:hover {
+    -fx-border-color: blue;
+    -fx-background-color: white;
+    -fx-text-fill: blue;
+}
+
+.btnCancel {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+}
+
+.btnCancel:hover {
+    -fx-border-color: red;
+    -fx-background-color: white;
+    -fx-text-fill: red;
+}
+
+/* Bestilling */
+.choice-box {
+    -fx-pref-height: 25;
+    -fx-pref-width: 222;
+    -fx-cursor: hand;
+}

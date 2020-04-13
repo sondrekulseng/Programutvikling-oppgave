@@ -28,8 +28,6 @@ public class BestillingController {
     private ChoiceBox<Komponent> velgSkjerm;
     @FXML
     private Label lblKvittering;
-    @FXML
-    private Button btnNyBestilling;
 
     @FXML
     void btnAvbryt(ActionEvent event) throws IOException {
@@ -92,16 +90,19 @@ public class BestillingController {
     void print(Komponent[] k) {
         double totPris = totPris(k);
         String[] liste = {"Prosessor","Skjermkort","Minne","Harddisk","Tastatur","Datamus","Skjerm"};
+        int antallElementer = 0;
         String ut = "";
-        ut += "Kvittering\n";
         // print kvittering
         for (int i=0; i<k.length; i++) {
             if (k[i]!=null) {
                 ut += liste[i]+": "+k[i]+"\n";
+                antallElementer++;
             }
         }
-        ut += "\nTotal sum: "+totPris+" kr";
-        lblKvittering.setText(ut);
+        if (antallElementer > 0) {
+            ut += "\nTotal sum: "+totPris+" kr";
+            lblKvittering.setText(ut);
+        }
     }
 
     @FXML
@@ -114,5 +115,6 @@ public class BestillingController {
         velgTastatur.getItems().addAll(Register.getTastaturListe());
         velgDatamus.getItems().addAll(Register.getDatamusListe());
         velgSkjerm.getItems().addAll(Register.getSkjermListe());
+        lblKvittering.setText("Bruk menyen til venstre for å konfigurere en ny pc.\nAlle feltene må fylles ut.");
     }
 }
