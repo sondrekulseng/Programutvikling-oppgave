@@ -2,7 +2,7 @@
 .root {
     -fx-pref-height: 600;
     -fx-pref-width: 1000;
-    -fx-background-color: lightblue;
+    -fx-background-color: linear-gradient(to bottom, #ff7f50, #6a5acd);
     -fx-font-family: sans-serif;
 }
 
@@ -39,4 +39,8 @@
     -fx-pref-height: 25;
     -fx-pref-width: 222;
     -fx-cursor: hand;
+}
+
+.choice-box:hover {
+    -fx-border-color: blue;
 }
