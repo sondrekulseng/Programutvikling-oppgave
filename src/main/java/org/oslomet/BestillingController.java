@@ -1,5 +1,6 @@
 package org.oslomet;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.ScatterChart;
@@ -10,6 +11,7 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class BestillingController {
     @FXML
@@ -108,13 +110,13 @@ public class BestillingController {
     @FXML
     public void initialize() {
         // fyll nedtrekkslister med verdier fra komponent lister
-        velgProsessor.getItems().addAll(Register.getProsessorListe());
-        velgSkjermkort.getItems().addAll(Register.getSkjermkortListe());
-        velgMinne.getItems().addAll(Register.getMinneListe());
-        velgLagring.getItems().addAll(Register.getHarddiskListe());
-        velgTastatur.getItems().addAll(Register.getTastaturListe());
-        velgDatamus.getItems().addAll(Register.getDatamusListe());
-        velgSkjerm.getItems().addAll(Register.getSkjermListe());
+        velgProsessor.getItems().addAll(Register.filtrerListe("Prosessor"));
+        velgSkjermkort.getItems().addAll(Register.filtrerListe("Skjermkort"));
+        velgMinne.getItems().addAll(Register.filtrerListe("Minne"));
+        velgLagring.getItems().addAll(Register.filtrerListe("Harddisk"));
+        velgTastatur.getItems().addAll(Register.filtrerListe("Tastatur"));
+        velgDatamus.getItems().addAll(Register.filtrerListe("Datamus"));
+        velgSkjerm.getItems().addAll(Register.filtrerListe("Skjerm"));
         lblKvittering.setText("Bruk menyen til venstre for å konfigurere en ny pc.\nAlle feltene må fylles ut.");
     }
 }

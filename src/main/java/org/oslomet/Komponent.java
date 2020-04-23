@@ -4,12 +4,13 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Komponent {
-    private SimpleStringProperty navn;
+    private SimpleStringProperty navn, kategori;
     private SimpleDoubleProperty pris;
 
-    public Komponent(String navn, double pris) {
+    public Komponent(String navn, double pris, String kategori) {
         this.navn = new SimpleStringProperty(navn);
         this.pris = new SimpleDoubleProperty(pris);
+        this.kategori = new SimpleStringProperty(kategori);
     }
 
     public String getNavn() {
@@ -26,6 +27,14 @@ public class Komponent {
 
     public void setPris(double pris) {
         this.pris.set(pris);
+    }
+
+    public String getKategori() {
+        return kategori.getValue();
+    }
+
+    public void setKategori(String kategori) {
+        this.kategori.set(kategori);
     }
 
     @Override
