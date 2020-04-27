@@ -2,7 +2,7 @@ package org.oslomet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class Register {
@@ -14,7 +14,14 @@ public class Register {
             new Komponent("Samsung HDD",100,"harddisk"),
             new Komponent("Logitech Keyboard",400,"tastatur"),
             new Komponent("Logitech gaming",500, "datamus"),
-            new Komponent("Samsung HD",500, "skjerm")
+            new Komponent("Samsung HD",500, "skjerm"),
+            new Komponent("A prosessor",200,"prosessor"),
+            new Komponent("A grafikkkort",700,"skjermkort"),
+            new Komponent("A Ram",50, "minne"),
+            new Komponent("A HDD",1200,"harddisk"),
+            new Komponent("A Keyboard",4300,"tastatur"),
+            new Komponent("A gaming",300, "datamus"),
+            new Komponent("A HD",700, "skjerm")
     );
 
     // datamaskin liste
@@ -38,11 +45,33 @@ public class Register {
         datamaskinListe.add(d);
     }
 
+    // remove metoder
+    public static void slettKomponent(int index) {
+        komponentListe.remove(index);
+    }
+
     // filtrer komponentliste etter kategori
     public static ObservableList<Komponent> filtrerListe(String filter) {
         ObservableList<Komponent> liste = komponentListe.stream()
                     .filter(r->r.getKategori().toLowerCase().equals(filter.toLowerCase()))
                     .collect(Collectors.toCollection(FXCollections::observableArrayList));
         return liste;
+    }
+
+    // sorter liste alfabetisk, etter pris...
+    public static ObservableList<Komponent> sorterListe(String sort, ObservableList<Komponent> list) {
+        ObservableList<Komponent> liste = list;
+        if (sort.equals("Pris (lav til høy)")) {
+            liste = list.stream()
+                    .sorted(Comparator.comparingDouble(Komponent::getPris))
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        } else if (sort.equals("Pris (høy til lav)")) {
+            liste = list.stream()
+                    .sorted(Comparator.comparingDouble(Komponent::getPris)
+                    .reversed())
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        }
+        return liste;
+
     }
 }

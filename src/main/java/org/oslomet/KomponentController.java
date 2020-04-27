@@ -1,5 +1,6 @@
 package org.oslomet;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -49,9 +50,14 @@ public class KomponentController {
             lblMelding.setText(e.getMessage());
             return;
         }
-
         if (kategori == null) {
             lblMelding.setText("Du må velge en kategori");
+            return;
+        }
+
+        // sjekk om dette produktet allerede finnes
+        if (navnFinnes(navn)) {
+            lblMelding.setText("Dette navnet er allerede tatt");
             return;
         }
 
@@ -59,6 +65,18 @@ public class KomponentController {
         txtNavn.clear();
         txtPris.clear();
         lblMelding.setText("Komponent lagt til");
+    }
+
+    boolean navnFinnes(String navn) {
+        boolean navnFinnes = false;
+        ObservableList<Komponent> list = Register.getKomponentListe();
+        for (int i=0; i<list.size(); i++) {
+            if (navn.equals(list.get(i).getNavn())) { // produkt finnes
+                navnFinnes = true;
+                break;
+            }
+        }
+        return navnFinnes;
     }
 
     double validerPris(String input) throws InvalidPriceException {

@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.cell.TextFieldTableCell?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -38,17 +39,23 @@
             <Font size="25.0" />
          </font>
       </Text>
-      <TableView fx:id="tblKomponenter" layoutY="166.0" prefHeight="243.0" prefWidth="1000.0">
+      <TableView fx:id="tblKomponenter" editable="true" layoutY="166.0" prefHeight="243.0" prefWidth="1000.0">
          <columns>
-            <TableColumn fx:id="navnCol" prefWidth="124.00002801418304" text="Komponent">
+            <TableColumn fx:id="navnCol" onEditCommit="#txtNavnEdited" prefWidth="124.00002801418304" text="Komponent">
                <cellValueFactory>
                   <PropertyValueFactory property="navn" />
                </cellValueFactory>
+               <cellFactory>
+                  <TextFieldTableCell fx:factory="forTableColumn" />
+               </cellFactory>
             </TableColumn>
-            <TableColumn fx:id="prisCol" prefWidth="97.3333511352539" text="Pris">
+            <TableColumn fx:id="prisCol" onEditCommit="#doublePrisEdited" prefWidth="97.3333511352539" text="Pris">
                <cellValueFactory>
                   <PropertyValueFactory property="pris" />
                </cellValueFactory>
+               <cellFactory>
+                  <TextFieldTableCell fx:factory="forTableColumn" />
+               </cellFactory>
             </TableColumn>
             <TableColumn fx:id="kategoriCol" prefWidth="127.33335876464844" text="Kategori">
                <cellValueFactory>
@@ -57,7 +64,7 @@
             </TableColumn>
          </columns>
       </TableView>
-      <Text layoutX="14.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elementer">
+      <Text layoutX="14.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrering">
          <font>
             <Font size="15.0" />
          </font>
@@ -72,6 +79,17 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <ChoiceBox fx:id="velgKategori" layoutX="14.0" layoutY="127.0" prefWidth="150.0" onAction="#sorterTabell" value="Vis alle"/>
+      <ChoiceBox fx:id="velgKategori" layoutX="14.0" layoutY="127.0" onAction="#sorterTabell" prefWidth="150.0" value="Vis alle" />
+      <Text layoutX="262.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sortering">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="velgSortering" layoutX="262.0" layoutY="127.0" onAction="#sorterTabell" prefWidth="150.0" value="Alfabetisk" />
+      <Button layoutX="524.0" layoutY="126.0" mnemonicParsing="false" onAction="#btnSlettRad" prefHeight="23.0" prefWidth="145.0" styleClass="btnConfirm" text="Slett valgt rad">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
