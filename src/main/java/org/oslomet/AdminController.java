@@ -1,22 +1,14 @@
 package org.oslomet;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
-
+import javafx.scene.text.Text;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.stream.Collectors;
 
 public class AdminController {
-
-    String[] k = {"Vis alle","Prosessor","Skjermkort","Minne","Harddisk","Tastatur","Datamus","Skjerm"};
 
     @FXML
     private ChoiceBox<String> velgKategori;
@@ -37,20 +29,35 @@ public class AdminController {
     private TableColumn<Komponent, String> kategoriCol;
 
     @FXML
+    private TextField txtKomponentNavn;
+
+    @FXML
+    private Text lblFinnKomponent;
+
+    @FXML
+    private Button btnReset;
+
+    @FXML
     public void initialize() {
+        String[] k = {"Vis alle","Prosessor","Skjermkort","Minne","Harddisk","Tastatur","Datamus","Skjerm"};
         prisCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
         velgKategori.getItems().addAll(k);
         velgSortering.getItems().addAll("Alfabetisk","Pris (lav til høy)","Pris (høy til lav)");
         sorterTabell();
+        btnReset.setVisible(false);
     }
 
     // filtrer etter kategori
     public ObservableList<Komponent> filtrerTabell() {
         String kategori = velgKategori.getValue();
+        txtKomponentNavn.clear();
+        btnReset.setVisible(false);
+        lblFinnKomponent.setText("Søk i kategorien "+kategori.toLowerCase());
         ObservableList<Komponent> list;
         if (!kategori.equals("Vis alle")) {
             list = Register.filtrerListe(kategori);
         } else {
+            lblFinnKomponent.setText("Søk i alle komponenter");
             list = Register.getKomponentListe();
         }
         return list;
@@ -72,6 +79,7 @@ public class AdminController {
         }
     }
 
+    // endre verdier i tableview
     @FXML
     private void txtNavnEdited(TableColumn.CellEditEvent<Komponent, String> event) {
         event.getRowValue().setNavn(event.getNewValue());
@@ -79,9 +87,31 @@ public class AdminController {
 
     @FXML
     private void doublePrisEdited(TableColumn.CellEditEvent<Komponent, Double> event) {
-        event.getRowValue().setPris(event.getNewValue());
+        try {
+            event.getRowValue().setPris(event.getNewValue());
+        } catch (InvalidPriceException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ugyldig pris");
+            alert.setHeaderText(e.getMessage());
+            alert.setContentText("Prøv igjen");
+            alert.showAndWait();
+        }
     }
 
+    @FXML
+    private void txtKategoriEdited(TableColumn.CellEditEvent<Komponent, String> event) {
+        try {
+            event.getRowValue().setKategori(event.getNewValue());
+        } catch (InvalidCategoriException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ugyldig kategori");
+            alert.setHeaderText(e.getMessage());
+            alert.setContentText("Prøv igjen");
+            alert.showAndWait();
+        }
+    }
+
+    // slett rad
     @FXML
     void btnSlettRad(ActionEvent event) throws IOException {
         Komponent k = tblKomponenter.getSelectionModel().getSelectedItem();
@@ -93,6 +123,38 @@ public class AdminController {
             }
         }
         sorterTabell();
+    }
+
+    // søk etter komponent
+    @FXML
+    void btnFinnKomponent(ActionEvent event) {
+        String navn = txtKomponentNavn.getText();
+        ObservableList<Komponent> liste = Register.finnListe(navn, filtrerTabell());
+        if (liste==null) { // tomt søk
+            sorterTabell();
+            return;
+        }
+        if (liste.size()<1) { // ingen treff
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ingen treff");
+            alert.setHeaderText("Søket ga ingen treff.");
+            alert.setContentText("Prøv igjen");
+            alert.showAndWait();
+            sorterTabell();
+            txtKomponentNavn.setText("");
+            btnReset.setVisible(false);
+        } else { // søket ga treff
+            tblKomponenter.setItems(liste);
+            btnReset.setVisible(true);
+            txtKomponentNavn.setText(navn);
+        }
+    }
+
+    // tilbakestill søk
+    @FXML
+    void btnResetAction(ActionEvent event) throws IOException {
+        tblKomponenter.setItems(filtrerTabell());
+        btnReset.setVisible(false);
     }
 
     @FXML

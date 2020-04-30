@@ -72,6 +72,17 @@ public class Register {
                     .collect(Collectors.toCollection(FXCollections::observableArrayList));
         }
         return liste;
+    }
 
+    // søk etter komponentnavn
+    public static ObservableList<Komponent> finnListe(String navn, ObservableList<Komponent> list) {
+        if (navn.isEmpty()) {
+            return null;
+        } else {
+            ObservableList<Komponent> liste = list.stream()
+                    .filter(r->r.getNavn().toLowerCase().equals(navn.toLowerCase()))
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            return liste;
+        }
     }
 }

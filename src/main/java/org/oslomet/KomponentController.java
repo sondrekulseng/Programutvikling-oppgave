@@ -61,7 +61,7 @@ public class KomponentController {
             return;
         }
 
-        Register.setKomponentListe(new Komponent(navn,pris,kategori));
+        Register.setKomponentListe(new Komponent(navn,pris,kategori.toLowerCase()));
         txtNavn.clear();
         txtPris.clear();
         lblMelding.setText("Komponent lagt til");
