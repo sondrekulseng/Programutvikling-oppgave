@@ -1,6 +1,7 @@
 package org.oslomet;
 
 import javafx.collections.ObservableList;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -38,13 +39,48 @@ public class AdminController {
     private Button btnReset;
 
     @FXML
+    private Label lblEditMelding;
+
+    private ThreadTest task;
+
+    @FXML
     public void initialize() {
-        String[] k = {"Vis alle","Prosessor","Skjermkort","Minne","Harddisk","Tastatur","Datamus","Skjerm"};
         prisCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        velgKategori.getItems().addAll(k);
+        // fyll nedtrekkslister
+        velgKategori.getItems().addAll("Vis alle","Prosessor","Skjermkort","Minne","Harddisk","Tastatur","Datamus","Skjerm");
         velgSortering.getItems().addAll("Alfabetisk","Pris (lav til høy)","Pris (høy til lav)");
-        sorterTabell();
         btnReset.setVisible(false);
+        startThread(); // last data fra fil
+    }
+
+    private void startThread() {
+        task = new ThreadTest();
+        task.setOnSucceeded(this::threadDone);
+        task.setOnFailed(this::threadFailed);
+        Thread th = new Thread(task);
+        th.setDaemon(true);
+        velgKategori.setDisable(true);
+        velgSortering.setDisable(true);
+        txtKomponentNavn.setDisable(true);
+        tblKomponenter.setPlaceholder(new Label("Laster data fra binær fil..."));
+        th.start();
+    }
+
+    private void threadDone(WorkerStateEvent e) {
+        velgKategori.setDisable(false);
+        velgSortering.setDisable(false);
+        txtKomponentNavn.setDisable(false);
+        int antall = task.getValue();
+        visInfoBoks("Lastet fra fil","Lastet "+task.getValue()+" elementer fra fil","");
+        if (antall<1) {
+            tblKomponenter.setPlaceholder(new Label("Ingen komponenter"));
+        }
+        sorterTabell();
+    }
+
+    private void threadFailed(WorkerStateEvent event) {
+        tblKomponenter.setPlaceholder(new Label("Ingen komponeneter"));
+        visAdvarselBoks("Feil","Feil ved innlasting av binær fil", "Lukk og prøv på nytt");
     }
 
     // filtrer etter kategori
@@ -67,6 +103,9 @@ public class AdminController {
     public void sorterTabell() {
         String sortering = velgSortering.getValue();
         ObservableList<Komponent> list = filtrerTabell();
+        if (list.size()<1) {
+            tblKomponenter.setPlaceholder(new Label("Ingen komponeneter"));
+        }
         if (sortering.equals("Alfabetisk")) {
             // alfabetisk
             tblKomponenter.setItems(list.sorted());
@@ -83,18 +122,18 @@ public class AdminController {
     @FXML
     private void txtNavnEdited(TableColumn.CellEditEvent<Komponent, String> event) {
         event.getRowValue().setNavn(event.getNewValue());
+        FileSaverJobj.save(); // lagre endringer til fil
+        visInfoBoks("Lagret","Dine endringer ble lagret","");
     }
 
     @FXML
     private void doublePrisEdited(TableColumn.CellEditEvent<Komponent, Double> event) {
         try {
             event.getRowValue().setPris(event.getNewValue());
+            FileSaverJobj.save();
+            visInfoBoks("Lagret","Dine endringer ble lagret","");
         } catch (InvalidPriceException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Ugyldig pris");
-            alert.setHeaderText(e.getMessage());
-            alert.setContentText("Prøv igjen");
-            alert.showAndWait();
+            visAdvarselBoks("Ugyldig pris","Du har skrevet en ugyldig pris", "");
         }
     }
 
@@ -102,13 +141,28 @@ public class AdminController {
     private void txtKategoriEdited(TableColumn.CellEditEvent<Komponent, String> event) {
         try {
             event.getRowValue().setKategori(event.getNewValue());
+            FileSaverJobj.save();
+            visInfoBoks("Lagret","Dine endringer ble lagret","");
         } catch (InvalidCategoriException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Ugyldig kategori");
-            alert.setHeaderText(e.getMessage());
-            alert.setContentText("Prøv igjen");
-            alert.showAndWait();
+            visAdvarselBoks("Ugyldig kategori","Du har skrevet en ugyldig kategori", "");
         }
+    }
+
+    // info boks
+    private void visInfoBoks(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void visAdvarselBoks(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     // slett rad
@@ -122,6 +176,7 @@ public class AdminController {
                 Register.slettKomponent(i);
             }
         }
+        FileSaverJobj.save();
         sorterTabell();
     }
 
@@ -157,11 +212,13 @@ public class AdminController {
         btnReset.setVisible(false);
     }
 
+    // annen side
     @FXML
     void btnNyKomponent(ActionEvent event) throws IOException {
         App.setRoot("komponent");
     }
 
+    // annen side
     @FXML
     void btnLoggUt(ActionEvent event) throws IOException {
         App.setRoot("start");

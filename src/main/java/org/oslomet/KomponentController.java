@@ -62,6 +62,8 @@ public class KomponentController {
         }
 
         Register.setKomponentListe(new Komponent(navn,pris,kategori.toLowerCase()));
+        FileSaverJobj.save();
+
         txtNavn.clear();
         txtPris.clear();
         lblMelding.setText("Komponent lagt til");

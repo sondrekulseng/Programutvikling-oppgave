@@ -7,22 +7,7 @@ import java.util.stream.Collectors;
 
 public class Register {
     // komponent liste
-    private static ObservableList<Komponent> komponentListe = FXCollections.observableArrayList(
-            new Komponent("Intel i5",100,"prosessor"),
-            new Komponent("Nvidea",400,"skjermkort"),
-            new Komponent("Samsun Ram",500, "minne"),
-            new Komponent("Samsung HDD",100,"harddisk"),
-            new Komponent("Logitech Keyboard",400,"tastatur"),
-            new Komponent("Logitech gaming",500, "datamus"),
-            new Komponent("Samsung HD",500, "skjerm"),
-            new Komponent("A prosessor",200,"prosessor"),
-            new Komponent("A grafikkkort",700,"skjermkort"),
-            new Komponent("A Ram",50, "minne"),
-            new Komponent("A HDD",1200,"harddisk"),
-            new Komponent("A Keyboard",4300,"tastatur"),
-            new Komponent("A gaming",300, "datamus"),
-            new Komponent("A HD",700, "skjerm")
-    );
+    private static ObservableList<Komponent> komponentListe = FXCollections.observableArrayList();
 
     // datamaskin liste
     private static ObservableList<Datamaskin> datamaskinListe = FXCollections.observableArrayList();

@@ -2,9 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -16,25 +13,6 @@
 
 <AnchorPane fx:id="txt" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.oslomet.AdminController">
    <children>
-      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="1000.0">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
       <Text layoutX="427.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Admin siden" textAlignment="CENTER">
          <font>
             <Font size="25.0" />
@@ -58,7 +36,7 @@
                   <TextFieldTableCell fx:factory="forTableColumn" />
                </cellFactory>
             </TableColumn>
-            <TableColumn fx:id="kategoriCol" prefWidth="127.33335876464844" text="Kategori" onEditCommit="#txtKategoriEdited">
+            <TableColumn fx:id="kategoriCol" onEditCommit="#txtKategoriEdited" prefWidth="127.33335876464844" text="Kategori">
                <cellValueFactory>
                   <PropertyValueFactory property="kategori" />
                </cellValueFactory>

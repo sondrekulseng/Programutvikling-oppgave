@@ -1,6 +1,7 @@
 package org.oslomet;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.ScatterChart;
@@ -9,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -30,6 +32,26 @@ public class BestillingController {
     private ChoiceBox<Komponent> velgSkjerm;
     @FXML
     private Label lblKvittering;
+
+    @FXML
+    public void initialize() {
+        Register.getKomponentListe().clear();
+        try {
+            Register.getKomponentListe().addAll(FileOpenerJobj.readFile());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+        // fyll nedtrekkslister med verdier fra komponent lister
+        velgProsessor.getItems().addAll(Register.filtrerListe("Prosessor"));
+        velgSkjermkort.getItems().addAll(Register.filtrerListe("Skjermkort"));
+        velgMinne.getItems().addAll(Register.filtrerListe("Minne"));
+        velgLagring.getItems().addAll(Register.filtrerListe("Harddisk"));
+        velgTastatur.getItems().addAll(Register.filtrerListe("Tastatur"));
+        velgDatamus.getItems().addAll(Register.filtrerListe("Datamus"));
+        velgSkjerm.getItems().addAll(Register.filtrerListe("Skjerm"));
+        lblKvittering.setText("Bruk menyen til venstre for å konfigurere en ny pc.\nAlle feltene må fylles ut.");
+    }
 
     @FXML
     void btnAvbryt(ActionEvent event) throws IOException {
@@ -105,18 +127,5 @@ public class BestillingController {
             ut += "\nTotal sum: "+totPris+" kr";
             lblKvittering.setText(ut);
         }
-    }
-
-    @FXML
-    public void initialize() {
-        // fyll nedtrekkslister med verdier fra komponent lister
-        velgProsessor.getItems().addAll(Register.filtrerListe("Prosessor"));
-        velgSkjermkort.getItems().addAll(Register.filtrerListe("Skjermkort"));
-        velgMinne.getItems().addAll(Register.filtrerListe("Minne"));
-        velgLagring.getItems().addAll(Register.filtrerListe("Harddisk"));
-        velgTastatur.getItems().addAll(Register.filtrerListe("Tastatur"));
-        velgDatamus.getItems().addAll(Register.filtrerListe("Datamus"));
-        velgSkjerm.getItems().addAll(Register.filtrerListe("Skjerm"));
-        lblKvittering.setText("Bruk menyen til venstre for å konfigurere en ny pc.\nAlle feltene må fylles ut.");
     }
 }
