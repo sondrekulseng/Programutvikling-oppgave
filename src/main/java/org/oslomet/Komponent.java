@@ -64,7 +64,7 @@ public class Komponent implements Serializable {
         if (validerKategori(kategori)) {
             this.kategori.set(kategori.toLowerCase());
         } else {
-            throw new InvalidCategoriException("Ikke en gyldig kategori");
+            throw new InvalidCategoriException("Du har skrevet en ugyldig kategori");
         }
 
     }

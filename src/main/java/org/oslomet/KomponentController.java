@@ -62,11 +62,14 @@ public class KomponentController {
         }
 
         Register.setKomponentListe(new Komponent(navn,pris,kategori.toLowerCase()));
-        FileSaverJobj.save();
-
+        try {
+            FileSaverJobj.save();
+        } catch (IOException e) {
+            lblMelding.setText("Feil ved lagring av fil.");
+        }
         txtNavn.clear();
         txtPris.clear();
-        lblMelding.setText("Komponent lagt til");
+        lblMelding.setText("Komponent lagt til og skrevet til fil");
     }
 
     boolean navnFinnes(String navn) {

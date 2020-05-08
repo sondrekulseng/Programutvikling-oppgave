@@ -39,7 +39,13 @@ public class AdminController {
     private Button btnReset;
 
     @FXML
-    private Label lblEditMelding;
+    private Button btnNyKomponent;
+
+    @FXML
+    private Button btnLoggUt;
+
+    @FXML
+    private Button btnSlettRad;
 
     private ThreadTest task;
 
@@ -50,7 +56,11 @@ public class AdminController {
         velgKategori.getItems().addAll("Vis alle","Prosessor","Skjermkort","Minne","Harddisk","Tastatur","Datamus","Skjerm");
         velgSortering.getItems().addAll("Alfabetisk","Pris (lav til høy)","Pris (høy til lav)");
         btnReset.setVisible(false);
-        startThread(); // last data fra fil
+        if (Register.getKomponentListe().size() == 0) {
+            startThread(); // last data fra fil
+        } else {
+            sorterTabell(); // last data fra liste
+        }
     }
 
     private void startThread() {
@@ -59,9 +69,13 @@ public class AdminController {
         task.setOnFailed(this::threadFailed);
         Thread th = new Thread(task);
         th.setDaemon(true);
+        // disable gui elementer mens fil lastes
         velgKategori.setDisable(true);
         velgSortering.setDisable(true);
         txtKomponentNavn.setDisable(true);
+        btnLoggUt.setDisable(true);
+        btnNyKomponent.setDisable(true);
+        btnSlettRad.setDisable(true);
         tblKomponenter.setPlaceholder(new Label("Laster data fra binær fil..."));
         th.start();
     }
@@ -70,6 +84,9 @@ public class AdminController {
         velgKategori.setDisable(false);
         velgSortering.setDisable(false);
         txtKomponentNavn.setDisable(false);
+        btnLoggUt.setDisable(false);
+        btnNyKomponent.setDisable(false);
+        btnSlettRad.setDisable(false);
         int antall = task.getValue();
         visInfoBoks("Lastet fra fil","Lastet "+task.getValue()+" elementer fra fil","");
         if (antall<1) {
@@ -80,6 +97,8 @@ public class AdminController {
 
     private void threadFailed(WorkerStateEvent event) {
         tblKomponenter.setPlaceholder(new Label("Ingen komponeneter"));
+        btnLoggUt.setDisable(false);
+        btnNyKomponent.setDisable(false);
         visAdvarselBoks("Feil","Feil ved innlasting av binær fil", "Lukk og prøv på nytt");
     }
 
@@ -122,18 +141,27 @@ public class AdminController {
     @FXML
     private void txtNavnEdited(TableColumn.CellEditEvent<Komponent, String> event) {
         event.getRowValue().setNavn(event.getNewValue());
-        FileSaverJobj.save(); // lagre endringer til fil
-        visInfoBoks("Lagret","Dine endringer ble lagret","");
+        try {
+            FileSaverJobj.save(); // lagre endringer til fil
+            visInfoBoks("Lagret","Dine endringer ble lagret","Endringer ble skrevet til fil.");
+        } catch (IOException e) {
+            visAdvarselBoks("Feil ved lagring",e.getMessage(),"");
+        }
     }
 
     @FXML
     private void doublePrisEdited(TableColumn.CellEditEvent<Komponent, Double> event) {
         try {
             event.getRowValue().setPris(event.getNewValue());
-            FileSaverJobj.save();
-            visInfoBoks("Lagret","Dine endringer ble lagret","");
         } catch (InvalidPriceException e) {
-            visAdvarselBoks("Ugyldig pris","Du har skrevet en ugyldig pris", "");
+            visAdvarselBoks("Ugyldig pris",e.getMessage(), "Prøv på nytt");
+            return;
+        }
+        try {
+            FileSaverJobj.save(); // lagre endringer til fil
+            visInfoBoks("Lagret","Dine endringer ble lagret","Endringer ble skrevet til fil.");
+        } catch (IOException e) {
+            visAdvarselBoks("Feil ved lagring",e.getMessage(),"");
         }
     }
 
@@ -141,10 +169,15 @@ public class AdminController {
     private void txtKategoriEdited(TableColumn.CellEditEvent<Komponent, String> event) {
         try {
             event.getRowValue().setKategori(event.getNewValue());
-            FileSaverJobj.save();
-            visInfoBoks("Lagret","Dine endringer ble lagret","");
         } catch (InvalidCategoriException e) {
-            visAdvarselBoks("Ugyldig kategori","Du har skrevet en ugyldig kategori", "");
+            visAdvarselBoks("Ugyldig kategori",e.getMessage(), "Prøv på nytt");
+            return;
+        }
+        try {
+            FileSaverJobj.save(); // lagre endringer til fil
+            visInfoBoks("Lagret","Dine endringer ble lagret","Endringer ble skrevet til fil.");
+        } catch (IOException e) {
+            visAdvarselBoks("Feil ved lagring",e.getMessage(),"");
         }
     }
 

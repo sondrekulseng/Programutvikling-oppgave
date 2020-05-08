@@ -51,12 +51,12 @@
             <Font size="15.0" />
          </font>
       </Text>
-      <Button layoutX="244.0" layoutY="479.0" mnemonicParsing="false" onAction="#btnNyKomponent" prefHeight="37.0" prefWidth="200.0" styleClass="btnConfirm" text="Legg til komponent">
+      <Button fx:id="btnNyKomponent" layoutX="244.0" layoutY="479.0" mnemonicParsing="false" onAction="#btnNyKomponent" prefHeight="37.0" prefWidth="200.0" styleClass="btnConfirm" text="Legg til komponent">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button layoutX="557.0" layoutY="479.0" mnemonicParsing="false" onAction="#btnLoggUt" prefHeight="37.0" prefWidth="200.0" styleClass="btnCancel" text="Logg ut">
+      <Button fx:id="btnLoggUt" layoutX="557.0" layoutY="479.0" mnemonicParsing="false" onAction="#btnLoggUt" prefHeight="37.0" prefWidth="200.0" styleClass="btnCancel" text="Logg ut">
          <font>
             <Font size="16.0" />
          </font>
@@ -68,7 +68,7 @@
          </font>
       </Text>
       <ChoiceBox fx:id="velgSortering" layoutX="262.0" layoutY="127.0" onAction="#sorterTabell" prefWidth="150.0" value="Alfabetisk" />
-      <Button layoutX="819.0" layoutY="125.0" mnemonicParsing="false" onAction="#btnSlettRad" prefHeight="23.0" prefWidth="145.0" styleClass="btnConfirm" text="Slett valgt rad">
+      <Button fx:id="btnSlettRad" layoutX="819.0" layoutY="125.0" mnemonicParsing="false" onAction="#btnSlettRad" prefHeight="23.0" prefWidth="145.0" styleClass="btnConfirm" text="Slett valgt rad">
          <font>
             <Font size="14.0" />
          </font>
