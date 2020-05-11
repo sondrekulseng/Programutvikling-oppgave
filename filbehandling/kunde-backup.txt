@@ -1,0 +1,7 @@
+AMD Ryzen 5;5000.0;prosessor;Nvidea GeForce;3000.0;skjermkort;Corsair DDR4 4GB;450.0;minne;Samsung 500GB;800.0;harddisk;Trådløst keyboard;700.0;tastatur;Logitech MX Master;1100.0;datamus;Samsung 24" HD;1500.0;skjerm;12550.0
+AMD Ryzen 5;5000.0;prosessor;Nvidea GeForce;3000.0;skjermkort;Corsair DDR4 4GB;450.0;minne;Samsung 500GB;800.0;harddisk;Trådløst keyboard;700.0;tastatur;Logitech MX Master;1100.0;datamus;Samsung 24" HD;1500.0;skjerm;12550.0
+AMD Ryzen 5;5000.0;prosessor;Nvidea GeForce;3000.0;skjermkort;Corsair DDR4 4GB;450.0;minne;Samsung 500GB;800.0;harddisk;Trådløst keyboard;700.0;tastatur;Logitech MX Master;1100.0;datamus;Samsung 24" HD;1500.0;skjerm;12550.0
+AMD Ryzen 5;5000.0;skjermkort;Nvidea GeForce;3000.0;skjermkort;Corsair DDR4 4GB;450.0;minne;Samsung 500GB;800.0;harddisk;Trådløst keyboard;700.0;tastatur;Logitech MX Master;1100.0;datamus;Samsung 24" HD;1500.0;skjerm;12550.0
+AMD Ryzen 5;5000.0;prosessor;Nvidea GeForce;3000.0;skjermkort;Corsair DDR4 4GB;450.0;minne;Samsung 500GB;800.0;harddisk;Trådløst keyboard;700.0;tastatur;Logitech MX Master;1100.0;datamus;Samsung 24" HD;1500.0;skjerm;12550.0
+AMD Ryzen 5;5000.0;prosessor;ASUS Radeon;5700.0;skjermkort;Corsair DDR4 4GB;450.0;minne;Samsung 500GB;800.0;harddisk;Mekanisk keyboard;1200.0;tastatur;Logitech MX Master;1100.0;datamus;Samsung 24" HD;1500.0;skjerm;15750.0
+Intel Core i5;3500.0;prosessor;ASUS Radeon;5700.0;skjermkort;Corsair DDR4 8GB;900.0;minne;Samsung 1TB;1500.0;harddisk;Mekanisk keyboard;1200.0;tastatur;Logitech MX Master;1100.0;datamus;Samsung 24" HD;1500.0;skjerm;15400.0

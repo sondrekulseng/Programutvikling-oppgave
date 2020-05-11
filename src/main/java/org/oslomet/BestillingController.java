@@ -1,19 +1,11 @@
 package org.oslomet;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class BestillingController {
     @FXML
@@ -35,11 +27,12 @@ public class BestillingController {
 
     @FXML
     public void initialize() {
-        Register.getKomponentListe().clear();
-        try {
-            Register.getKomponentListe().addAll(FileOpenerJobj.readFile());
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
+        if (Register.getKomponentListe().size() == 0) {
+            try {
+                Register.getKomponentListe().addAll(FileOpenerJobj.readFile());
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
         }
 
         // fyll nedtrekkslister med verdier fra komponent lister
@@ -62,9 +55,23 @@ public class BestillingController {
     void btnNyBestilling(ActionEvent event) throws IOException {
         Komponent[] k = getSelected(); // hent verdier
         if (validering(k)) { // validering godkjent
-            double totPris = totPris(k); // total pris
+            double totPris = Math.round(totPris(k)*100.0)/100.0; // total pris
             Register.setDatamaskinListe(new Datamaskin(k[0],k[1],k[2],k[3],k[4],k[5],k[6],totPris)); // ny pc
-            App.setRoot("kunde"); //
+            try {
+                FileSaverTxt.save();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Bestilling lagret");
+                alert.setHeaderText("Din bestilling ble lagret");
+                alert.setContentText("Bestilling ble skrevet til fil");
+                alert.showAndWait();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Feil ved lagring av bestilling");
+                alert.setHeaderText("Klarte ikke å lagre bestilling");
+                alert.setContentText("Prøv på nytt");
+                alert.showAndWait();
+            }
+            App.setRoot("kunde");
         } else { // validering er ikke godkjent
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fyll ut felter");
@@ -112,7 +119,7 @@ public class BestillingController {
     }
 
     void print(Komponent[] k) {
-        double totPris = totPris(k);
+        double totPris = Math.round(totPris(k)*100.0)/100.0; // total pris
         String[] liste = {"Prosessor","Skjermkort","Minne","Harddisk","Tastatur","Datamus","Skjerm"};
         int antallElementer = 0;
         String ut = "";

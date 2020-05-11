@@ -2,9 +2,7 @@ package org.oslomet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
@@ -13,7 +11,7 @@ public class FileOpenerJobj {
     public static ObservableList<Komponent> readFile() throws Exception {
         ObservableList<Komponent> listeUt;
         try {
-            FileInputStream fileInputStream = new FileInputStream("backup.jobj");
+            FileInputStream fileInputStream = new FileInputStream("filbehandling/admin-backup.jobj");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             listeUt = FXCollections.observableArrayList((ArrayList) objectInputStream.readObject());
         } catch (Exception e) {

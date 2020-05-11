@@ -1,9 +1,7 @@
 package org.oslomet;
 
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,10 +11,10 @@ public class Komponent implements Serializable {
     private transient SimpleStringProperty navn, kategori;
     private transient SimpleDoubleProperty pris;
 
-    public Komponent(String navn, double pris, String kategori) {
-        this.navn = new SimpleStringProperty(navn);
-        this.pris = new SimpleDoubleProperty(pris);
-        this.kategori = new SimpleStringProperty(kategori);
+    public Komponent(String navn, double pris, String kategori) throws InvalidPriceException, InvalidCategoriException {
+        setNavn(navn);
+        setPris(pris);
+        setKategori(kategori);
     }
 
     // serialisering av objektene
@@ -37,40 +35,40 @@ public class Komponent implements Serializable {
         this.kategori = new SimpleStringProperty(kategori);
     }
 
+    // get metoder
     public String getNavn() {
         return navn.getValue();
-    }
-
-    public void setNavn(String navn) {
-        this.navn.set(navn);
     }
 
     public double getPris() {
         return pris.getValue();
     }
 
-    public void setPris(double pris) throws InvalidPriceException {
-        if (validerPris(pris))
-            this.pris.set(pris);
-        else
-            throw new InvalidPriceException("Pris må være et positivt tall");
-    }
-
     public String getKategori() {
         return kategori.getValue();
     }
 
-    public void setKategori(String kategori) throws InvalidCategoriException {
-        if (validerKategori(kategori)) {
-            this.kategori.set(kategori.toLowerCase());
-        } else {
-            throw new InvalidCategoriException("Du har skrevet en ugyldig kategori");
-        }
-
+    // set metoder
+    public void setNavn(String navn) {
+        this.navn = new SimpleStringProperty(navn);
     }
 
-    // valider kategori
-    public boolean validerKategori(String txt) {
+    public void setPris(double pris) throws InvalidPriceException {
+        if (gyldigPris(pris))
+            this.pris = new SimpleDoubleProperty(pris);
+        else
+            throw new InvalidPriceException("Pris må være minst 100 kr");
+    }
+
+    public void setKategori(String kategori) throws InvalidCategoriException {
+        if (gyldigKategori(kategori))
+            this.kategori = new SimpleStringProperty(kategori.toLowerCase());
+        else 
+            throw new InvalidCategoriException(kategori+" er ikke en gyldig kategori");
+    }
+
+    // validering kategori
+    public boolean gyldigKategori(String txt) {
         String[] k = {"prosessor","skjermkort","minne","harddisk","tastatur","datamus","skjerm"};
         boolean gyldig = false;
         for (String verdi:k) {
@@ -82,14 +80,15 @@ public class Komponent implements Serializable {
         return gyldig;
     }
 
-    // valider pris
-    public boolean validerPris(double pris) {
-        if (pris<1)
+    // validering pris
+    public boolean gyldigPris(double pris) {
+        if (pris<100)
             return false;
         else
             return true;
     }
 
+    // toString metode
     @Override
     public String toString() {
         return navn.getValue()+", "+pris.getValue()+" kr";

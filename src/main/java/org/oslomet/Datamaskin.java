@@ -17,56 +17,56 @@ public class Datamaskin {
         this.totPris = new SimpleDoubleProperty(totPris);
     }
 
-    public String getProsessor() {
-        return prosessor.getNavn();
+    public Komponent getProsessor() {
+        return prosessor;
     }
 
     public void setProsessor(Komponent prosessor) {
         this.prosessor = prosessor;
     }
 
-    public String getSkjermkort() {
-        return skjermkort.getNavn();
+    public Komponent getSkjermkort() {
+        return skjermkort;
     }
 
     public void setSkjermkort(Komponent skjermkort) {
         this.skjermkort = skjermkort;
     }
 
-    public String getMinne() {
-        return minne.getNavn();
+    public Komponent getMinne() {
+        return minne;
     }
 
     public void setMinne(Komponent minne) {
         this.minne = minne;
     }
 
-    public String getHarddisk() {
-        return harddisk.getNavn();
+    public Komponent getHarddisk() {
+        return harddisk;
     }
 
     public void setHarddisk(Komponent harddisk) {
         this.harddisk = harddisk;
     }
 
-    public String getTastatur() {
-        return tastatur.getNavn();
+    public Komponent getTastatur() {
+        return tastatur;
     }
 
     public void setTastatur(Komponent tastatur) {
         this.tastatur = tastatur;
     }
 
-    public String getDatamus() {
-        return datamus.getNavn();
+    public Komponent getDatamus() {
+        return datamus;
     }
 
     public void setDatamus(Komponent datamus) {
         this.datamus = datamus;
     }
 
-    public String getSkjerm() {
-        return skjerm.getNavn();
+    public Komponent getSkjerm() {
+        return skjerm;
     }
 
     public void setSkjerm(Komponent skjerm) {

@@ -47,7 +47,7 @@ public class AdminController {
     @FXML
     private Button btnSlettRad;
 
-    private ThreadTest task;
+    private AdminThread task;
 
     @FXML
     public void initialize() {
@@ -64,7 +64,7 @@ public class AdminController {
     }
 
     private void startThread() {
-        task = new ThreadTest();
+        task = new AdminThread();
         task.setOnSucceeded(this::threadDone);
         task.setOnFailed(this::threadFailed);
         Thread th = new Thread(task);
@@ -141,6 +141,7 @@ public class AdminController {
     @FXML
     private void txtNavnEdited(TableColumn.CellEditEvent<Komponent, String> event) {
         event.getRowValue().setNavn(event.getNewValue());
+
         try {
             FileSaverJobj.save(); // lagre endringer til fil
             visInfoBoks("Lagret","Dine endringer ble lagret","Endringer ble skrevet til fil.");
