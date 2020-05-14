@@ -11,6 +11,7 @@ public class Komponent implements Serializable {
     private transient SimpleStringProperty navn, kategori;
     private transient SimpleDoubleProperty pris;
 
+    // konstruktør
     public Komponent(String navn, double pris, String kategori) throws InvalidPriceException, InvalidCategoriException {
         setNavn(navn);
         setPris(pris);
@@ -54,16 +55,20 @@ public class Komponent implements Serializable {
     }
 
     public void setPris(double pris) throws InvalidPriceException {
-        if (gyldigPris(pris))
+        if (pris>=100)
+            // pris er 100 kr eller mer
             this.pris = new SimpleDoubleProperty(pris);
         else
+            // pris er mindre enn 100 kr
             throw new InvalidPriceException("Pris må være minst 100 kr");
     }
 
     public void setKategori(String kategori) throws InvalidCategoriException {
         if (gyldigKategori(kategori))
+            // gyldig kategori
             this.kategori = new SimpleStringProperty(kategori.toLowerCase());
-        else 
+        else
+            // ugyldig kategori
             throw new InvalidCategoriException(kategori+" er ikke en gyldig kategori");
     }
 
@@ -80,15 +85,7 @@ public class Komponent implements Serializable {
         return gyldig;
     }
 
-    // validering pris
-    public boolean gyldigPris(double pris) {
-        if (pris<100)
-            return false;
-        else
-            return true;
-    }
-
-    // toString metode
+    // toString
     @Override
     public String toString() {
         return navn.getValue()+", "+pris.getValue()+" kr";

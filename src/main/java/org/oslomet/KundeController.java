@@ -1,10 +1,13 @@
 package org.oslomet;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.text.Text;
+
 import java.io.IOException;
 
 public class KundeController {
@@ -12,28 +15,31 @@ public class KundeController {
     private TableView<Datamaskin> tblDatamaskiner;
 
     @FXML
-    private TableColumn<Datamaskin, Komponent> prosessorCol;
+    private TableColumn<Datamaskin, String> prosessorCol;
 
     @FXML
-    private TableColumn<Datamaskin, Komponent> skjermkortCol;
+    private TableColumn<Datamaskin, String> skjermkortCol;
 
     @FXML
-    private TableColumn<Datamaskin, Komponent> minneCol;
+    private TableColumn<Datamaskin, String> minneCol;
 
     @FXML
-    private TableColumn<Datamaskin, Komponent> harddiskCol;
+    private TableColumn<Datamaskin, String> harddiskCol;
 
     @FXML
-    private TableColumn<Datamaskin, Komponent> tastaturCol;
+    private TableColumn<Datamaskin, String> tastaturCol;
 
     @FXML
-    private TableColumn<Datamaskin, Komponent> datamusCol;
+    private TableColumn<Datamaskin, String> datamusCol;
 
     @FXML
-    private TableColumn<Datamaskin, Komponent> skjermCol;
+    private TableColumn<Datamaskin, String> skjermCol;
 
     @FXML
     private TableColumn<Datamaskin, Double> prisCol;
+
+    @FXML
+    private Text lblOverskrift;
 
     @FXML
     public void initialize() {
@@ -72,6 +78,18 @@ public class KundeController {
             FileOpenerTxt.feilLinjeNr.clear();
         }
 
+        lblOverskrift.setText("Viser "+Register.getDatamaskinListe().size()+" bestillinger");
+
+        // sett kolonner i tableview
+        prosessorCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProsessor().getNavn()));
+        skjermkortCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSkjermkort().getNavn()));
+        minneCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMinne().getNavn()));
+        harddiskCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHarddisk().getNavn()));
+        tastaturCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTastatur().getNavn()));
+        datamusCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDatamus().getNavn()));
+        skjermCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSkjerm().getNavn()));
+
+        // set tableview
         tblDatamaskiner.setItems(Register.getDatamaskinListe());
     }
 

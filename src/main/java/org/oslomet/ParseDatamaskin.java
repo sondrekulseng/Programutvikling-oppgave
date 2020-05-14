@@ -3,8 +3,8 @@ package org.oslomet;
 public class ParseDatamaskin {
     public static Datamaskin parseDatamaskin(String str) throws InvalidDatamaskinFormatException {
         String[] k = str.split(";");
-        if (k.length != 22) {
-            throw new InvalidDatamaskinFormatException("Filen inneholder ugyldige tegn");
+        if (k.length != 22) { // ugyldige tegn
+            throw new InvalidDatamaskinFormatException("Bestillingen inneholder ugyldige tegn");
         }
         double prosessorPris, skjermkortPris, minnePris, harddiskPris, tastaturPris, datamusPris, skjermPris,totPris;
         // parse pris
@@ -17,8 +17,8 @@ public class ParseDatamaskin {
             datamusPris = Double.parseDouble(k[16]);
             skjermPris = Double.parseDouble(k[19]);
             totPris = Double.parseDouble(k[21]);
-        } catch (NumberFormatException e) {
-            throw new InvalidDatamaskinFormatException("Filen inneholder ugyldige tegn");
+        } catch (NumberFormatException e) { // pris inneholder noe annet enn tall
+            throw new InvalidDatamaskinFormatException("Pris må være et tall");
         }
 
         Datamaskin d = null;
@@ -32,7 +32,7 @@ public class ParseDatamaskin {
             Komponent datamus = new Komponent(k[15],datamusPris,k[17]);
             Komponent skjerm = new Komponent(k[18],skjermPris,k[20]);
             d = new Datamaskin(prosessor,skjermkort,minne,harddisk,tastatur,datamus,skjerm,totPris);
-        } catch (Exception e) {
+        } catch (Exception e) { // pris er under 100 kr eller ugyldig kategori
             throw new InvalidDatamaskinFormatException(e.getMessage());
         }
 

@@ -19,7 +19,7 @@ public class FileOpenerTxt {
                     Register.setDatamaskinListe(d);
                 } catch (Exception e) {
                     feilMeldinger.add(e.getMessage());
-                    feilLinjeNr.add("Feil på linje "+linjeNr);
+                    feilLinjeNr.add("Feil på linje "+linjeNr+" i kunde-backup.txt");
                 }
                 antallLinjer++;
             }

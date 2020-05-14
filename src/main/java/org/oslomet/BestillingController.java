@@ -56,7 +56,17 @@ public class BestillingController {
         Komponent[] k = getSelected(); // hent verdier
         if (validering(k)) { // validering godkjent
             double totPris = Math.round(totPris(k)*100.0)/100.0; // total pris
-            Register.setDatamaskinListe(new Datamaskin(k[0],k[1],k[2],k[3],k[4],k[5],k[6],totPris)); // ny pc
+
+            try {
+                Register.setDatamaskinListe(new Datamaskin(k[0],k[1],k[2],k[3],k[4],k[5],k[6],totPris)); // ny pc
+            } catch (InvalidPriceException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Feil");
+                alert.setHeaderText(e.getMessage());
+                alert.setContentText("Prøv på nytt");
+                alert.showAndWait();
+            }
+
             try {
                 FileSaverTxt.save();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

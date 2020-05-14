@@ -6,7 +6,8 @@ public class Datamaskin {
     private Komponent prosessor, skjermkort, minne, harddisk, tastatur, datamus, skjerm;
     private SimpleDoubleProperty totPris;
 
-    public Datamaskin(Komponent prosessor, Komponent skjermkort, Komponent minne, Komponent harddisk, Komponent tastatur, Komponent datamus, Komponent skjerm, double totPris) {
+    // konstruktør
+    public Datamaskin(Komponent prosessor, Komponent skjermkort, Komponent minne, Komponent harddisk, Komponent tastatur, Komponent datamus, Komponent skjerm, double totPris) throws InvalidPriceException {
         this.prosessor = prosessor;
         this.skjermkort = skjermkort;
         this.minne = minne;
@@ -14,9 +15,10 @@ public class Datamaskin {
         this.tastatur = tastatur;
         this.datamus = datamus;
         this.skjerm = skjerm;
-        this.totPris = new SimpleDoubleProperty(totPris);
+        setTotPris(totPris);
     }
 
+    // get/set metoder
     public Komponent getProsessor() {
         return prosessor;
     }
@@ -71,6 +73,15 @@ public class Datamaskin {
 
     public void setSkjerm(Komponent skjerm) {
         this.skjerm = skjerm;
+    }
+
+    public void setTotPris(double totPris) throws InvalidPriceException {
+        if (totPris>=700)
+            // total prisen er 700 kr eller mer
+            this.totPris = new SimpleDoubleProperty(totPris);
+        else
+            // total pris er mindre enn 700 kr
+            throw new InvalidPriceException("Total prisen må være minst 700 kr");
     }
 
     public double getTotPris() {
